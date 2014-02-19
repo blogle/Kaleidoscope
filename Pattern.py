@@ -2,6 +2,7 @@ import subprocess
 import os, sys
 from PIL import Image, ImageDraw
 from IImage import IImage
+import numpy as np
 
 class IImage2(IImage):
 
@@ -15,9 +16,16 @@ class IImage2(IImage):
 		mask = Image.new('L', im.size, color=255)
 		draw = ImageDraw.Draw(mask)
 
-		triangles = [(self.width/2, self.height/2), (0, self.height), (0,0),
-					 (self.width, 0), (self.width, self.height),
-					 (self.width/2, self.height/2)]
+		a = self.height
+		alpha = 67.5
+		b = a / np.tan(alpha)
+		r = self.width - 2*b
+
+
+		triangles = [(self.width/2, 0), (0, 0), (0, self.height),
+					 (r, self.height), (self.width/2, 0),
+					 (self.width-r, self.height), (self.width, self.height),
+					 (self.width, 0), (self.width/2, 0)]
 
 		draw.polygon(triangles, fill=0)
 		im.putalpha(mask)

@@ -154,17 +154,19 @@ class IImage(object):
 
 	def kaleidoscope(self, keepOriginalSize=True):
 		self.pil = Image.open('output/' + self.pil.filename.split('input/')[1])
+		filename = self.pil.filename
 		img0 = self.copy().rotate(180)
-		img1 = self.copy().rotate(270)
-		img2 = self.copy().rotate(90)
+		img1 = self.copy().rotate(45)
+		img2 = self.copy().rotate(135 + 180)
 
-		im = IImage.combine(self, img0, img1, img2, keepOriginalSize)
+
+		im = self.combine(img0, img1, img2)
 
 		im = self.mirror(im, 2)
 		im = self.mirror(im.rotate(90))
 
-		im.save(self.pil.filename)
-		self.pil = Image.open(self.pil.filename)
+		im.save(filename)
+		self.pil = Image.open( filename)
 
 
 		return self
@@ -175,15 +177,25 @@ class IImage(object):
 			mirror_img.paste(img, (i*x,0))
 		return mirror_img
 	#@classmethod
-	def combine(self, iimg0, iimg1, iimg2, iimg3, keepOriginalSize=False):
+	def combine(self, iimg0, iimg1, iimg2):
 		width, height = iimg0.width, iimg0.height
-		#newSize = (width*2, height*2)
-		canvas = self.pil
-		canvas.paste(iimg0.pil, (0, 5), iimg0.pil)
-		canvas.paste(iimg1.pil, (0, 2), iimg1.pil)
-		canvas.paste(iimg2.pil, (0, 2), iimg2.pil)
+		newSize = (width*2, height*2)
+		width, height = newSize
+
+		canvas = Image.new("RGB", newSize, color='black')
+
+		canvas.paste(self.pil, (width/4,height/2), self.pil)
+		canvas.paste(iimg0.pil, (width/4,0), iimg0.pil)
+
+		canvas.paste(self.pil.rotate(270), (0, height/4), self.pil.rotate(270))
+		canvas.paste(iimg0.pil.rotate(-90), (width/2, height/4), iimg0.pil.rotate(-90))
+
+		canvas.paste(iimg1.pil.rotate(180), (108, 108), iimg1.pil.rotate(180))
+		canvas.paste(iimg1.pil.rotate(90), (int(width/2.35), 108), iimg1.pil.rotate(90))
+
+		canvas.paste(iimg2.pil, (108, int(height/2.35)), iimg2.pil)
+		canvas.paste(iimg2.pil.rotate(90), (int(width/2.35), int(height/2.35)), iimg2.pil.rotate(90))
 
 		self.pil = canvas
-		if keepOriginalSize:
-			return self.pil.thumbnail(width, height, Image.NEAREST)
+
 		return self.pil
