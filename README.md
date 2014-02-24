@@ -29,7 +29,7 @@ main work loop, it takes each image and does the following
 </ol>
 
 <h3>Example Output</h3>
-![Example Output](blogle/Kaleidoscope/example.png "Example Output")
+![Example Output](example.png "Example Output")
 
 It's up to you to stitch the images back together, I have no experience with ffmpeg so I opted for
 Quicktime Pro 7 (not bundled in OS X) then opened Kaleidoscope/output as an image sequence
