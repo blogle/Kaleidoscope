@@ -37,7 +37,6 @@ This is all better demonstrated in the actual [Notebook](http://nbviewer.ipython
 ![Example Output](Sample Frames/kaleidoscope_frame2706.png "Example Output")
 ![Example Output](Sample Frames/kaleidoscope_frame2747.png "Example Output")
 ![Example Output](Sample Frames/kaleidoscope_frame2785.png "Example Output")
-![Example Output](Sample Frames/kaleidoscope_frame3530.png "Example Output")
 ![Example Output](Sample Frames/kaleidoscope_frame3534.png "Example Output")
 ![Example Output](Sample Frames/kaleidoscope_frame4112.png "Example Output")
 ![Example Output](Sample Frames/kaleidoscope_frame4394.png "Example Output")
